@@ -10,10 +10,10 @@ class BoostPackageToolsConan(ConanFile):
     url = "https://github.com/bincrafters/conan-boost-package-tools"
     description = "Shared python code used in other Conan recipes for the Boost libraries"
     license = "MIT"
-    exports = "boost-package-tools.py", "LICENSE.md"
+    exports = "boost_package_tools.py", "LICENSE.md"
     
     def package(self):
-        self.copy('boost-package-tools.py')
+        self.copy('boost_package_tools.py')
         self.copy('LICENSE.md')
 
     def package_info(self):
