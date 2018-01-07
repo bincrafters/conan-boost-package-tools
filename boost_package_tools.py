@@ -80,7 +80,7 @@ import project ;
 project /conan/{0} ;
 project.register-id /boost/{0} : $(__name__) ;""".format(lib_short_name))
         elif not is_in_cycle_group(conanfile):
-            conanfile.run(conanfile.deps_user_info['Boost.Generator'].b2_command \
+            conanfile.run(conanfile.deps_user_info['boost_generator'].b2_command \
                 + " " + b2_options(conanfile, lib_short_name) \
                 + " %s-build" % (lib_short_name))
 
