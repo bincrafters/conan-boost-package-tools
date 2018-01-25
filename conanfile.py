@@ -11,12 +11,10 @@ class BoostPackageToolsConan(ConanFile):
     description = "Shared python code used in other Conan recipes for the Boost libraries"
     license = "MIT"
     exports = "boost_package_tools.py", "LICENSE.md"
-    
+
     def package(self):
         self.copy('boost_package_tools.py')
         self.copy('LICENSE.md')
 
     def package_info(self):
         self.env_info.PYTHONPATH.append(self.package_folder)
-    
-    

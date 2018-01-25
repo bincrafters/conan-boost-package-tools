@@ -1,6 +1,7 @@
 from conans import ConanFile, tools
 import os
 
+
 def b2_options(conanfile, lib_name=None):
     result = ""
     if hasattr(conanfile, 'b2_options'):
@@ -24,6 +25,7 @@ def is_header_only(conanfile, lib_name=None):
         pass
     return True
 
+
 def source_only_deps(conanfile, lib_name):
     try:
         return conanfile.source_only_deps[lib_name]
@@ -35,17 +37,20 @@ def source_only_deps(conanfile, lib_name):
         pass
     return []
 
+
 def is_in_cycle_group(conanfile):
     try:
         return conanfile.is_in_cycle_group
     except Exception:
         return False
 
+
 def is_cycle_group(conanfile):
     try:
         return conanfile.is_cycle_group
     except Exception:
         return False
+
 
 def source(conanfile):
     # print(">>>>> conanfile.source: " + str(conanfile))
@@ -59,6 +64,7 @@ def source(conanfile):
             tools.get("{0}/{1}/archive/{2}.tar.gz"
                 .format(boostorg_github, lib_short_name, archive_name))
             os.rename(lib_short_name + "-" + archive_name, lib_short_name)
+
 
 def build(conanfile):
     # print(">>>>> conanfile.build: " + str(conanfile))
@@ -74,9 +80,10 @@ import project ;
 project /conan/{0} ;
 project.register-id /boost/{0} : $(__name__) ;""".format(lib_short_name))
         elif not is_in_cycle_group(conanfile):
-            conanfile.run(conanfile.deps_user_info['Boost.Generator'].b2_command \
+            conanfile.run(conanfile.deps_user_info['boost_generator'].b2_command \
                 + " " + b2_options(conanfile, lib_short_name) \
                 + " %s-build" % (lib_short_name))
+
 
 def package(conanfile, *subdirs_to_package):
     # print(">>>>> conanfile.package: " + str(conanfile))
@@ -87,6 +94,7 @@ def package(conanfile, *subdirs_to_package):
         for subdir in subdirs_to_package:
             copydir = os.path.join(lib_short_name, subdir)
             conanfile.copy(pattern="*", dst=copydir, src=copydir)
+
 
 def package_info(conanfile):
     # print(">>>>> conanfile.package_info: " + str(conanfile))
