@@ -86,11 +86,12 @@ project.register-id /boost/{0} : $(__name__) ;""".format(lib_short_name))
 
 
 def package(conanfile, *subdirs_to_package):
-    # print(">>>>> conanfile.package: " + str(conanfile))
+    #print(">>>>> conanfile.package: " + str(conanfile))
     if not subdirs_to_package:
         subdirs_to_package = []
     subdirs_to_package.extend(["lib", "include"])
     for lib_short_name in conanfile.lib_short_names:
+        conanfile.copy(pattern="*LICENSE*", dst="license", src=lib_short_name)
         for subdir in subdirs_to_package:
             copydir = os.path.join(lib_short_name, subdir)
             conanfile.copy(pattern="*", dst=copydir, src=copydir)
