@@ -98,10 +98,11 @@ def package(conanfile, *subdirs_to_package):
 
 
 def package_info(conanfile):
-    # print(">>>>> conanfile.package_info: " + str(conanfile))
+    #print(">>>>> conanfile.package_info: " + str(conanfile))
     conanfile.user_info.lib_short_names = ",".join(conanfile.lib_short_names)
     conanfile.cpp_info.includedirs = []
     conanfile.cpp_info.libdirs = []
+    conanfile.cpp_info.bindirs = []
     conanfile.cpp_info.libs = []
     if is_in_cycle_group(conanfile):
         if not is_header_only(conanfile):
@@ -122,3 +123,4 @@ def package_info(conanfile):
             include_dir = os.path.join(lib_short_name, "include")
             conanfile.cpp_info.includedirs.append(include_dir)
     conanfile.cpp_info.defines.append("BOOST_ALL_NO_LIB=1")
+    conanfile.cpp_info.bindirs.extend(conanfile.cpp_info.libdirs)
