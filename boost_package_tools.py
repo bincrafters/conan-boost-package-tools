@@ -124,8 +124,3 @@ def package_info(conanfile):
             conanfile.cpp_info.includedirs.append(include_dir)
     conanfile.cpp_info.defines.append("BOOST_ALL_NO_LIB=1")
     conanfile.cpp_info.bindirs.extend(conanfile.cpp_info.libdirs)
-
-def package_id(conanfile):
-    #print(">>>>> conanfile.package_id: " + str(conanfile))
-    if is_header_only():
-        conanfile.info.header_only()
