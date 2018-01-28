@@ -75,10 +75,14 @@ def build(conanfile):
                 if not os.path.exists(lib_dir):
                     os.makedirs(lib_dir)
                 with open(os.path.join(lib_dir, "jamroot.jam"), "w") as f:
-                    f.write("""
+                    f.write("""\
 import project ;
-project /conan/{0} ;
-project.register-id /boost/{0} : $(__name__) ;""".format(lib_short_name))
+import path ;
+import modules ;
+ROOT({0}) = [ path.parent [ path.parent [ path.make [ modules.binding $(__name__) ] ] ] ] ;
+project /conan/{0} : requirements <include>$(ROOT({0}))/include ;
+project.register-id /boost/{0} : $(__name__) ;\
+""".format(lib_short_name))
         elif not is_in_cycle_group(conanfile):
             conanfile.run(conanfile.deps_user_info['boost_generator'].b2_command \
                 + " " + b2_options(conanfile, lib_short_name) \
