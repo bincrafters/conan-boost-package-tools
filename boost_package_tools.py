@@ -40,7 +40,7 @@ def source_only_deps(conanfile, lib_name):
 
 def is_in_cycle_group(conanfile):
     try:
-        return conanfile.is_in_cycle_group
+        return hasattr(conanfile, "level_group") 
     except Exception:
         return False
 
@@ -109,10 +109,15 @@ def package_info(conanfile):
     conanfile.cpp_info.bindirs = []
     conanfile.cpp_info.libs = []
     if is_in_cycle_group(conanfile):
+        lib_name = conanfile.lib_short_names[0]
+        group = conanfile.deps_cpp_info[conanfile.level_group]
+        include_dir = os.path.join(group.rootpath, lib_name, "include")
+        lib_dir = os.path.join(group.rootpath, lib_name, "lib")
+        conanfile.cpp_info.includedirs.append(include_dir)
         if not is_header_only(conanfile):
-            for lib_dir in conanfile.deps_cpp_info.lib_paths:
-                if os.path.basename(os.path.dirname(lib_dir)) == conanfile.lib_short_names[0]:
-                    conanfile.cpp_info.libs.extend(tools.collect_libs(conanfile, lib_dir))
+            conanfile.cpp_info.libdirs.append(lib_dir)
+            conanfile.cpp_info.bindirs.append(lib_dir)
+            conanfile.cpp_info.libs.extend(tools.collect_libs(conanfile, lib_dir))
     elif is_cycle_group(conanfile):
         for lib_short_name in conanfile.lib_short_names:
             lib_dir = os.path.join(lib_short_name, "lib")
