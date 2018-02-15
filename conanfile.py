@@ -6,7 +6,7 @@ from conans import ConanFile
 
 class BoostPackageToolsConan(ConanFile):
     name = "boost_package_tools"
-    version = "1.66.0"
+    version = "1.65.1"
     url = "https://github.com/bincrafters/conan-boost-package-tools"
     description = "Shared python code used in other Conan recipes for the Boost libraries"
     license = "MIT"
