@@ -2,7 +2,7 @@
 
 | Bintray | Windows | Linux & Mac | 
 |:--------:|:---------:|:-----------------:|
-|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/boost-package-tools%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/boost-package-tools%3Abincrafters/_latestVersion)|NA|NA|
+|[![Download](https://api.bintray.com/packages/bincrafters/public-conan/boost_package_tools%3Abincrafters/images/download.svg)](https://bintray.com/bincrafters/public-conan/boost_package_tools%3Abincrafters/_latestVersion)|NA|NA|
 
 ## Conan.io Information
 
