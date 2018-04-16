@@ -56,8 +56,8 @@ def source(conanfile):
     # print(">>>>> conanfile.source: " + str(conanfile))
     if not is_in_cycle_group(conanfile):
         boostorg_github = "https://github.com/boostorg"
-        # archive_name = "boost-" + conanfile.version
-        archive_name = "master"
+        archive_name = "boost-" + conanfile.version
+        # archive_name = "master"
         libs_to_get = list(conanfile.lib_short_names)
         for lib_short_name in conanfile.lib_short_names:
             libs_to_get.extend(source_only_deps(conanfile, lib_short_name))
