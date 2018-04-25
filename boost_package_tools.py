@@ -108,7 +108,8 @@ project.register-id /boost/{0} : $(__name__) ;\
                 "%s-build" % (lib_short_name),
                 ]
             conanfile.output.info("%s: %s" % (os.getcwd(), " ".join(b2_command)))
-            conanfile.run(" ".join(b2_command))
+            with tools.environment_append({'PATH':[os.getenv('MPI_BIN', '')]}):
+                conanfile.run(" ".join(b2_command))
             libs = collect_build_libs(conanfile, lib_dir)
             with open(os.path.join(lib_dir, "jamroot.jam"), "a") as f:
                 for lib in libs:
